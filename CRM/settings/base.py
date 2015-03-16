@@ -50,9 +50,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'CMS.urls'
+ROOT_URLCONF = 'CRM.urls'
 
-WSGI_APPLICATION = 'CMS.wsgi.application'
+WSGI_APPLICATION = 'CRM.wsgi.application'
 
 
 # Database
