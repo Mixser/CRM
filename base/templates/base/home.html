@@ -1,5 +1,8 @@
-{% extends  '__base.html' %}
-
+{% extends  'base/__base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
-	<h1>Hello, world </h1>
+    {{ user }}
+    {% if not user.is_authenticated %}
+	    {% crispy form %}
+    {% endif %}
 {% endblock %}

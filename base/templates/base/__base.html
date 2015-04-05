@@ -1,0 +1,33 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<html>
+	<head>
+        <link type="text/css" rel="stylesheet" href="{% static 'vendor/css/bootstrap.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'vendor/css/bootstrap-theme.css' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}">
+
+
+	</head>
+	
+	<body>
+            {%block nav_bar%}
+                {% include 'base/layouts/_nav_bar.html' %}
+            {%endblock%}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 sidebar">
+                        {% include  'base/layouts/_side_bar.html' %}
+                    </div>
+                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+
+
+            {% block scripts %}
+                <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+                <script rel="script" type="text/javascript" src="{% static 'vendor/js/bootstrap.js' %}"></script>
+            {% endblock %}
+	</body>
+</html>

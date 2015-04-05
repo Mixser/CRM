@@ -11,11 +11,27 @@ class EmployerManager(UserManager):
         super(EmployerManager, self).__init__(*args, **kwargs)
 
 
+class Schedule(models.Model):
+    employer = models.OneToOneField('Employer', related_name='schedule')
+
+    def __unicode__(self):
+        return str(self.employer)
+
+
 class Employer(AbstractUser):
 
     objects = EmployerManager()
-    pass
 
+
+    def save(self, *args, **kwargs):
+        super(Employer, self).save(*args, **kwargs)
+
+        if not hasattr(self, 'schedule'):
+            Schedule.objects.create(employer=self)
+
+    @staticmethod
+    def get_by_user(user):
+        return Employer.objects.filter(pk=user.pk)
 
 class Department(models.Model):
     title = models.CharField(max_length=255)
@@ -52,6 +68,28 @@ class GoodsAtWarehouse(models.Model):
     goods = models.ForeignKey(Goods)
     warehouse = models.ForeignKey(Warehouse)
     count = models.IntegerField()
+
+
+
+
+class Event(TimeStampMixin, models.Model):
+    MEETING = 0
+    TASK = 1
+
+    EVENT_TYPES = (
+        (MEETING, 'Meeting'),
+        (TASK, 'Task'),
+    )
+
+    schedule = models.ForeignKey(Schedule, related_name='events')
+    on_date = models.DateTimeField()
+
+    type = models.IntegerField(choices=EVENT_TYPES)
+
+    title = models.CharField(max_length=255)
+    body = models.TextField()
+
+
 
 
 class AbstractActivity(models.Model):

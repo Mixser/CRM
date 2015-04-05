@@ -1,0 +1,27 @@
+{% extends 'base/__base.html' %}
+
+{% block content %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Type</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{event.type}}</td>
+                    <td>{{event.title}}</td>
+                    <td>
+                        <a href="{% url 'event_update' pk=event.id  %}">Change event</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
