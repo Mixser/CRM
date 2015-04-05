@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7mriue-+sz62pekl8()!^9!2j$ujsf^w)z409w866k7c2d@k*3'
+SECRET_KEY = r'7mriue-+sz62pekl8()!^9!2j$ujsf^w)z409w866k7c2d@k*3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,6 +28,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+AUTH_USER_MODEL = 'base.Employer'
 
 INSTALLED_APPS = (
     'grappelli',
@@ -50,20 +52,27 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'CRM.urls'
+ROOT_URLCONF = 'crm.urls'
 
-WSGI_APPLICATION = 'CRM.wsgi.application'
+WSGI_APPLICATION = 'crm.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+DB_USER = os.environ['DB_USER']
+DB_PASSWORD = os.environ['DB_PASSWORD']
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'crm',
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': 'localhost',
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -85,4 +94,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-TEMPLATE_DIRS = ('base/templates', )
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
